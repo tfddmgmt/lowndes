@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lowndes County</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="css/own_style.css">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <!--meta data for sharing links on Facebook-->
+    <meta property="og:title" content="The major cities in Oregon"/>
+    <meta property="og:url" content="http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.4/video.html"/>
+    <meta property="og:description" content="This is an example of a storymap."/>
+    <meta property="og:image" content="img/social.png"/>
+
+    <!--add required stylesheets-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+
+
+    <!--add favicon for the web page-->
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+
+
+    <!--add required libraries-->
+
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!--boostrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+    <!--mini globle map-->
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+<style>
+
+nav {
+        height: 34px !important;
+        z-index: 1001;
+    }
+
+body {
+    padding-top: 34px;
+    height: 100%;
+    font-family: Cairo, sans-serif;
+    font-size: 14px;
+}
+
+.btn {
+    position: fixed;
+    cursor: pointer;
+    font-size: 18px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    color: rgba(169, 169, 169, 0.8);
+    z-index: 1005;
+    top: 20px;
+    left: 5px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark storymap-navbar">
+
+        <!--convert the style value to a class and then add the class to the css file.-->
+        <a class="navbar-brand" href="https://www.acrecdc.com/" target="_blank">
+            <img src="/assets/logo.png"  height="20" alt=""></a>
+            <a class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)" href="index.html">Lowndes County Sewage Crisis  </a>      
+  
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+        <!--Create class ml-auto for the navbar items you want on the right.-->
+        <ul class="navbar-nav ml-auto">    
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="demo.html">Demographics</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="map.html">Interactive map</a>
+            </li>
+          </ul>
+    </div>
+</nav>
+<div id="map"></div>
+<script src="data/exp_Lowndesfloodingfrequencydissolved.js"></script>
+<script src="data/exp_Lowndescounty.js"></script>
+<script src="data/exp_Lowndeschurches.js"></script>
+<script src="data/exp_Lowndesschools.js"></script>
+<script src="data/exp_Lowndeshousehold.js"></script>
+<script>
+var map = L.map('map', {
+    zoomControl:true, maxZoom:19
+}).fitBounds([[31.9505456602,-87.0486073395],[32.4178083172,-86.2563626962]]);
+var hash = new L.Hash(map);
+var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+var feature_group = new L.featureGroup([]);
+var raster_group = new L.LayerGroup([]);
+var basemap_0 = L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', { 
+
+});	
+var basemap_1 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw', {
+                id: 'mapbox.satellite'
+            });
+basemap_0.addTo(map);
+var layerOrder=new Array();
+function pop_Lowndeshousehold(feature, layer) {					
+    var popupContent = '<table><tr><th scope="row">POP2010</th><td>' + Autolinker.link(String(feature.properties['POP2010'])) + '</td></tr><tr><th scope="row">HOUSEHOLDS</th><td>' + Autolinker.link(String(feature.properties['HOUSEHOLDS'])) + '</td></tr><tr><th scope="row">HSE_UNITS</th><td>' + Autolinker.link(String(feature.properties['HSE_UNITS'])) + '</td></tr></table>';
+    layer.bindPopup(popupContent);
+}
+
+var exp_LowndeshouseholdJSON = new L.geoJson(exp_Lowndeshousehold,{
+    onEachFeature: pop_Lowndeshousehold,
+    pointToLayer: function (feature, latlng) {  
+        return L.circleMarker(latlng, {
+            radius: 4.0,
+            fillColor: '#86533f',
+            color: '#000000',
+            weight: 1,
+            opacity: 1.0,
+            fillOpacity: 1.0
+        })
+    }
+});
+//add comment sign to hide this layer on the map in the initial view.
+//feature_group.addLayer(exp_LowndeshouseholdJSON);
+function pop_Lowndesschools(feature, layer) {					
+    var popupContent = feature.properties.html_exp;
+    layer.bindPopup(popupContent);
+}
+
+var exp_LowndesschoolsJSON = new L.geoJson(exp_Lowndesschools,{
+    onEachFeature: pop_Lowndesschools,
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.icon({
+                iconUrl: feature.properties.icon_exp,
+                iconSize:     [24, 24], // size of the icon change this to scale your icon (first coordinate is x, second y from the upper left corner of the icon)
+                iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location (first coordinate is x, second y from the upper left corner of the icon)
+                popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor (first coordinate is x, second y from the upper left corner of the icon)
+            })
+        })
+    }}
+);
+//add comment sign to hide this layer on the map in the initial view.
+feature_group.addLayer(exp_LowndesschoolsJSON);
+function pop_Lowndeschurches(feature, layer) {					
+    var popupContent = feature.properties.html_exp;
+    layer.bindPopup(popupContent);
+}
+
+var exp_LowndeschurchesJSON = new L.geoJson(exp_Lowndeschurches,{
+    onEachFeature: pop_Lowndeschurches,
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: L.icon({
+                iconUrl: feature.properties.icon_exp,
+                iconSize:     [24, 24], // size of the icon change this to scale your icon (first coordinate is x, second y from the upper left corner of the icon)
+                iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location (first coordinate is x, second y from the upper left corner of the icon)
+                popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor (first coordinate is x, second y from the upper left corner of the icon)
+            })
+        })
+    }}
+);
+//add comment sign to hide this layer on the map in the initial view.
+feature_group.addLayer(exp_LowndeschurchesJSON);
+function pop_Lowndescounty(feature, layer) {					
+
+}
+
+function doStyleLowndescounty(feature) {
+        return {
+            color: '#000000',
+            fillColor: '#474eca',
+            weight: 1.3,
+            dashArray: '',
+            opacity: 1.0,
+            fillOpacity: 0
+        };
+
+}
+var exp_LowndescountyJSON = new L.geoJson(exp_Lowndescounty,{
+
+    style: doStyleLowndescounty
+});
+layerOrder[layerOrder.length] = exp_LowndescountyJSON;
+for (index = 0; index < layerOrder.length; index++) {
+    feature_group.removeLayer(layerOrder[index]);feature_group.addLayer(layerOrder[index]);
+}
+//add comment sign to hide this layer on the map in the initial view.
+feature_group.addLayer(exp_LowndescountyJSON);
+function pop_Lowndesfloodingfrequencydissolved(feature, layer) {					
+    var popupContent =  Autolinker.link(String(feature.properties['value']));
+    layer.bindPopup(popupContent);
+}
+
+function doStyleLowndesfloodingfrequencydissolved(feature) {
+    switch (feature.properties.value) {
+        case 'Frequent Floods':
+            return {
+                weight: '1.3',
+                fillColor: '#ff0000',
+                color: '#000000',
+                weight: '1',
+                dashArray: '',
+                opacity: '1.0',
+                fillOpacity: '1.0',
+            };
+            break;
+        case 'Occasional Floods':
+            return {
+                weight: '1.3',
+                fillColor: '#ffff00',
+                color: '#000000',
+                weight: '1',
+                dashArray: '',
+                opacity: '1.0',
+                fillOpacity: '1.0',
+            };
+            break;
+        case 'Rare Floods':
+            return {
+                weight: '1.3',
+                fillColor: '#b0d8c8',
+                color: '#000000',
+                weight: '1',
+                dashArray: '',
+                opacity: '1.0',
+                fillOpacity: '1.0',
+            };
+            break;
+        default:
+            return {
+                weight: '1.3',
+                fillColor: '#68e614',
+                color: '#000000',
+                weight: '1',
+                dashArray: '',
+                opacity: '1.0',
+                fillOpacity: '1.0',
+            };
+            break;
+    }
+}
+var exp_LowndesfloodingfrequencydissolvedJSON = new L.geoJson(exp_Lowndesfloodingfrequencydissolved,{
+    onEachFeature: pop_Lowndesfloodingfrequencydissolved,
+    style: doStyleLowndesfloodingfrequencydissolved
+});
+//add comment sign to hide this layer on the map in the initial view.
+feature_group.addLayer(exp_LowndesfloodingfrequencydissolvedJSON);
+
+feature_group.addTo(map);
+var title = new L.Control();
+title.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+title.update = function () {
+    this._div.innerHTML = '<h2>Lowndes County</h2>Interactive Web Map'
+};
+title.addTo(map);
+var baseMaps = {
+'CartoDB Light': basemap_0,
+'Satellite': basemap_1
+};
+L.control.layers(baseMaps,{"Floodings": exp_LowndesfloodingfrequencydissolvedJSON,"Churches": exp_LowndeschurchesJSON,"Schools": exp_LowndesschoolsJSON,},{collapsed:false}).addTo(map);
+L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+</script>
+    <dl>
+        <dt>
+            <!--facebook icon-->
+            <a class="fab fa-facebook-square btn"
+               href="https://facebook.com/sharer.php?u=http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.3/video.html"  style="top:100px"
+               target="_blank"></a>
+        </dt>
+        <dt>
+            <!--facebook icon-->
+            <a class="fab fa-github btn" href="https://github.com/jakobzhao/storymap" style="top:120px"
+               target="_blank"></a>
+        </dt>
+        <dt>
+            <!--info icon-->
+            <i class="fas fa-info-circle btn" style="top:140px" data-toggle="modal" data-target="#info-modal"></i>
+        </dt>
+    </dl>
+
+    <!--the info page-->
+    <div class="modal fade" id="info-modal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About</h4>
+                </div>
+                <div class="modal-body">
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    </p>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

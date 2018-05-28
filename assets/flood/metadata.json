@@ -1,0 +1,12 @@
+{
+  "name": "flooo",
+  "version": "1.1.0",
+  "description": "",
+  "type": "overlay",
+  "format": "png",
+  "minzoom": "8",
+  "maxzoom": "12",
+  "scale": "2.000000",
+  "bounds": [-87.07933734, 31.87884781, -86.25944070, 32.45856952],
+  "profile": "mercator"
+}
