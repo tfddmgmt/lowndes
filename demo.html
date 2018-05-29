@@ -146,7 +146,61 @@ position: relative;
         </div>
     </div>
 </div>
-
+<div class="container">
+  <div class="row">
+          
+              <div id="pippo">
+                  
+                      <style>
+                       svg {
+                          align: auto;
+                        }
+                        .y.axis path {
+                          display: none;
+                        }
+                        
+                        .y.axis line {
+                          stroke: #fff;
+                          stroke-opacity: .2;
+                          shape-rendering: crispEdges;
+                        }
+                        
+                        .y.axis .zero line {
+                          stroke: #000;
+                          stroke-opacity: 1;
+                        }
+                        
+                        .title {
+                          font-size: 32px;
+                          fill: #666;
+                        }
+                        
+                        .birthyear,
+                        .age {
+                          text-anchor: middle;
+                        }
+                        
+                        .birthyear {
+                          fill: #fff;
+                        }
+                        
+                        rect {
+                          fill-opacity: .6;
+                          fill: #e377c2;
+                        }
+                        
+                        rect:first-child {
+                          fill: #1f77b4;
+                        }
+                        
+                      </style>
+                        <script src="assets/charts/bar1.js"></script>
+                  
+              </div>
+                     
+              <div class="col-sm">In this page are hosted some charts about the population in Lowndes County, Alabama. The diagram on the left shows the distribution of age groups in Lowndes County over the last 7 years. Use the arrow keys to observe the changing population on the displayed year. The blue bars are the male population for each five-year age bracket, while the pink bars are the female population; the bars are partially transparent so that you can see how they overlap. Data from census.gov. Chart derived from <a href="https://bl.ocks.org/mbostock/4062085"> Mike Bostock</a></div>
+  </div>
+</div>
 <div class="container">
     <div class="row">
       <div class="col-sm">
@@ -157,62 +211,7 @@ position: relative;
       </div>
     </div>
     </div>  
-    <div class="container">
-    <div class="row">
-            
-                <div id="pippo">
-                    
-                        <style>
-                         svg {
-                            align: auto;
-                          }
-                          .y.axis path {
-                            display: none;
-                          }
-                          
-                          .y.axis line {
-                            stroke: #fff;
-                            stroke-opacity: .2;
-                            shape-rendering: crispEdges;
-                          }
-                          
-                          .y.axis .zero line {
-                            stroke: #000;
-                            stroke-opacity: 1;
-                          }
-                          
-                          .title {
-                            font-size: 32px;
-                            fill: #666;
-                          }
-                          
-                          .birthyear,
-                          .age {
-                            text-anchor: middle;
-                          }
-                          
-                          .birthyear {
-                            fill: #fff;
-                          }
-                          
-                          rect {
-                            fill-opacity: .6;
-                            fill: #e377c2;
-                          }
-                          
-                          rect:first-child {
-                            fill: #1f77b4;
-                          }
-                          
-                        </style>
-                          <script src="//d3js.org/d3.v3.min.js"></script>
-                          <script src="assets/charts/bar1.js"></script>
-                    
-                </div>
-                       
-                <div class="col-sm">In this page are hosted some charts about the population in Lowndes County, Alabama. The diagram on the left shows the distribution of age groups in Lowndes County over the last 7 years. Use the arrow keys to observe the changing population on the displayed year. The blue bars are the male population for each five-year age bracket, while the pink bars are the female population; the bars are partially transparent so that you can see how they overlap. Data from census.gov. Chart derived from <a href="https://bl.ocks.org/mbostock/4062085"> Mike Bostock</a></div>
-    </div>
-  </div>
+
 
 
 <!-- main javascript -->
