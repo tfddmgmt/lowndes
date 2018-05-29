@@ -192,7 +192,7 @@
     // Create Legend Contents in html format
     var county_legend = '<i style="background: orange; opacity: 0.5"></i><p><b>Lownndes County</b></p>';
     var bb_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>Black Belt</b></p>';
-    var march_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>MLK march route</b></p>';
+    var march_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>MLK March Route</b></p>';
     var hh_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>Households</b></p>';
     var flood_legend = '<i style="background: red; opacity: 0.5"></i><p><b>Frequent floods</b></p><i style="background: yellow; opacity: 0.5"></i><p><b>Occasional floods</b></p><i style="background: green; opacity: 0.5"></i><p><b>Rare floods</b></p><i style="background: blue; opacity: 0.5"></i><p><b>Households</b></p>';
 
@@ -228,16 +228,16 @@
         bb: {
             layer: L.geoJson.ajax('assets/bb.geojson', {
                 color: 'blue',
-                weight: 1,
+                weight: 0.5,
                 opacity: 0.3
             }), legend: bb_legend
         },
         march: {
             layer: L.geoJson.ajax('assets/march.geojson', {
                 color: 'blue',
-                dashArray: '2, 5',
-                weight: 3,
-                opacity: 0.3
+                weight: 2,
+                dashArray: '2,5',
+                opacity: 0.6
             }), legend: march_legend
         },
         households: {
@@ -264,7 +264,7 @@
     var scenes = {
         overview: {lat: 32.2100000, lng: -86.6000000, zoom: 7, name: 'Cover Page', layers: []},
         geography: {lat: 32.2100000, lng: -87.6000000, zoom: 8, name: 'Geography', layers: [layers.lowndes, layers.bb]},
-        history: {lat: 32.2100000, lng: -87.000000, zoom: 10, name: 'History', layers: [layers.lowndes,layers.march]},
+        history: {lat: 32.2100000, lng: -87.000000, zoom: 10, name: 'History', layers: [layers.march, layers.lowndes]},
         geology: {lat: 32.1600000, lng: -86.8000000, zoom: 11, name: 'Geology', layers: [layers.flood]},
         socioeconomic: {lat: 32.2100000, lng: -87.6000000, zoom: 8, name: 'Socioeconomic', layers: []},
         water: {lat: 32.2100000, lng: -87.6000000, zoom: 8, name: 'Water', layers: [layers.lowndes, layers.satellite]},
