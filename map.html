@@ -119,6 +119,9 @@ var basemap_0 = L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/l
 var basemap_1 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw', {
                 id: 'mapbox.satellite'
             });
+var basemap_2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                id: 'OSM'
+            });
 basemap_0.addTo(map);
 var layerOrder=new Array();
 function pop_Lowndeshousehold(feature, layer) {					
@@ -221,7 +224,7 @@ function doStyleLowndesfloodingfrequencydissolved(feature) {
                 weight: '1',
                 dashArray: '',
                 opacity: '1.0',
-                fillOpacity: '1.0',
+                fillOpacity: '0.7',
             };
             break;
         case 'Occasional Floods':
@@ -232,7 +235,7 @@ function doStyleLowndesfloodingfrequencydissolved(feature) {
                 weight: '1',
                 dashArray: '',
                 opacity: '1.0',
-                fillOpacity: '1.0',
+                fillOpacity: '0.7',
             };
             break;
         case 'Rare Floods':
@@ -243,7 +246,7 @@ function doStyleLowndesfloodingfrequencydissolved(feature) {
                 weight: '1',
                 dashArray: '',
                 opacity: '1.0',
-                fillOpacity: '1.0',
+                fillOpacity: '0.7',
             };
             break;
         default:
@@ -279,7 +282,8 @@ title.update = function () {
 title.addTo(map);
 var baseMaps = {
 'CartoDB Light': basemap_0,
-'Satellite': basemap_1
+'Satellite': basemap_1,
+'Open Street Map': basemap_2
 };
 L.control.layers(baseMaps,{"Floodings": exp_LowndesfloodingfrequencydissolvedJSON,"Churches": exp_LowndeschurchesJSON,"Schools": exp_LowndesschoolsJSON,},{collapsed:false}).addTo(map);
 L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
