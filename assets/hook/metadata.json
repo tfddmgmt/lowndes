@@ -1,0 +1,12 @@
+{
+  "name": "hook",
+  "version": "1.1.0",
+  "description": "",
+  "type": "overlay",
+  "format": "png",
+  "minzoom": "0",
+  "maxzoom": "5",
+  "scale": "2.000000",
+  "bounds": [-140.53217056, -67.73385904, 180.00000000, 81.23207826],
+  "profile": "mercator"
+}
