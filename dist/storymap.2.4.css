@@ -1,15 +1,18 @@
 /*Updated on 05/05/2018| version 2.3 | MIT License*/
+html, body, #map { width: 100%; height: 100%; margin: 0; background: #fff; }
 html {
     height: 100%;
 }
 
 body {
-    padding-top: 70px;
-    height: 100%;
     font-family: Cairo, sans-serif;
     font-size: 14px;
 }
 
+#piechart {
+    position: relative;
+    }
+    
 .cesium-viewer-cesiumWidgetContainer {
     position: fixed;
     top: 0;
@@ -272,7 +275,7 @@ video {
     width: 150px;
     z-index: 1000;
     right: 20px;
-    top: 60px;
+    top: 50px;
     display: none;
     color: #333333;
     font-family: Cairo, sans-serif;

@@ -219,7 +219,8 @@
     var hh_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>Households</b></p>';
     var rivers_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>Rivers and Water bodies</b></p>';
     var complaints_legend = '<i style="background: blue; opacity: 0.5"></i><p><b>Complaints</b></p>';
-    var flood_legend = '<h5>Septic tank absorption </h5><br><i style="background: red; opacity: 0.5"></i><p><b>Very Limited</b></p><i style="background: yellow; opacity: 0.5"></i><p><b>Somewhat Limited</b></p><i style="background: green; opacity: 0.5"></i><p><b>Not Limited</b></p>';
+    var flood_legend = '<h6><b>Septic tank absorption </b></h6><br><i style="background: red; opacity: 0.5"></i><p><b>Very Limited</b></p><i style="background: yellow; opacity: 0.5"></i><p><b>Somewhat Limited</b></p><i style="background: green; opacity: 0.5"></i><p><b>Not Limited</b></p>';
+    var poverty_legend = '<h6><b>Population below the poverty line </b></h6><br><i style="background: green; opacity: 0.5"></i><p><b>Less than 10%</b></p><i style="background: greenyellow; opacity: 0.5"></i><p><b>10%-20%</b></p><i style="background: yellow; opacity: 0.5"></i><p><b>20%-30%</b></p><i style="background: orange; opacity: 0.5"></i><p><b>30%-40%</b></p><i style="background: red; opacity: 0.5"></i><p><b>Over 40%</b></p>';
 
 
 
@@ -232,7 +233,7 @@
 
     var layers = {
         ESRI: {layer: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')},
-        //flood: {layer: L.tileLayer('assets/flood/{z}/{x}/{y}.png', {}), legend: flood_legend},
+
         lowndes: {
             layer: L.geoJson.ajax('assets/counties.geojson', {
                 color: 'orange',
@@ -243,11 +244,51 @@
         lowndes_hollow: {
             layer: L.geoJson.ajax('assets/counties.geojson', {
                 weight: '1.3',
-				color: 'red',
+				color: 'gray',
 				weight: '2',
-				dashArray: '',
-				opacity: '1.0',
+				dashArray: '3,5',
+				opacity: '0.8',
 				fillOpacity: '0',
+            })
+        },
+        p1: {
+            layer: L.geoJson.ajax('assets/1.geojson', {
+                color: 'green',
+                weight: 0.5,
+                opacity: 0.9,
+                fillOpacity: 0.5,
+            }), legend: poverty_legend
+        },
+        p2: {
+            layer: L.geoJson.ajax('assets/2.geojson', {
+                color: 'greenyellow',
+                weight: 0.5,
+                opacity: 0.9,
+                fillOpacity: 0.5,
+            })
+        },
+        p3: {
+            layer: L.geoJson.ajax('assets/3.geojson', {
+                color: 'yellow',
+                weight: 0.5,
+                opacity: 0.9,
+                fillOpacity: 0.5,
+            })
+        },
+        p4: {
+            layer: L.geoJson.ajax('assets/4.geojson', {
+                color: 'orange',
+                weight: 0.5,
+                opacity: 0.9,
+                fillOpacity: 0.5,
+            })
+        },
+        p5: {
+            layer: L.geoJson.ajax('assets/5.geojson', {
+                color: 'red',
+                weight: 0.5,
+                opacity: 0.9,
+                fillOpacity: 0.5,
             })
         },
         vl: {
@@ -274,7 +315,7 @@
         rivers: {
             layer: L.geoJson.ajax('assets/rivers.geojson', {
                 color: 'blue',
-                weight: 0.5,
+                weight: 2,
                 opacity: 1
             }), legend: rivers_legend
         },
@@ -282,14 +323,17 @@
             layer: L.geoJson.ajax('assets/water.geojson', {
                 color: 'blue',
                 weight: 0.5,
-                opacity: 1
+                opacity: 1,
+                fillOpacity: 1
             })
+        },        flood: {layer: L.tileLayer('assets/flood/{z}/{x}/{y}.png', {opacity: 0.7})
         },
         bb: {
             layer: L.geoJson.ajax('assets/bb.geojson', {
                 color: 'blue',
                 weight: 0.5,
-                opacity: 0.3
+                opacity: 0.3,
+                fillOpacity: 0.3,
             }), legend: bb_legend
         },
         complaints: {
@@ -332,9 +376,9 @@
         overview: {lat: 32.2100000, lng: -86.6000000, zoom: 7, name: 'Cover Page', layers: []},
         geography: {lat: 32.3000000, lng: -87.6000000, zoom: 8, name: 'Geography', layers: [layers.lowndes]},
         history: {lat: 32.5000000, lng: -87.600000, zoom: 8, name: 'History', layers: [layers.march, layers.lowndes, layers.bb]},
-        geology: {lat: 32.1600000, lng: -86.8000000, zoom: 11, name: 'Geology', layers: [layers.vl, layers.sl, layers.nl]},
-        socioeconomic: {lat: 32.2000000, lng: -86.8000000, zoom: 11, name: 'Socioeconomic', layers: []},
-        water: {lat: 32.2000000, lng: -86.8000000, zoom: 11, name: 'Water', layers: [layers.rivers, layers.water, layers.lowndes_hollow]},
+        geology: {lat: 32.2000000, lng: -86.8000000, zoom: 11, name: 'Geology', layers: [layers.vl, layers.sl, layers.nl, layers.lowndes_hollow]},
+        socioeconomic: {lat: 32.2000000, lng: -86.8000000, zoom: 11, name: 'Socioeconomic', layers: [layers.p1, layers.p2, layers.p3, layers.p4, layers.p5, layers.lowndes_hollow]},
+        water: {lat: 32.2000000, lng: -86.8000000, zoom: 11, name: 'Water', layers: [ layers.flood,layers.rivers, layers.water,layers.lowndes_hollow]},
         health: {lat: 32.2100000, lng: -87.6000000, zoom: 8, name: 'Health', layers: []},
         end: {lat: 32.2100000, lng: -87.6000000, zoom: 8, name: 'The End'}
     };

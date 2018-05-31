@@ -30,7 +30,7 @@ var birthyears = svg.append("g")
 var title = svg.append("text")
     .attr("class", "title")
     .attr("dy", ".71em")
-    .text(2016);
+    .text(2010);
 
 d3.csv("assets/charts/population.csv", function(error, data) {
 
@@ -45,7 +45,7 @@ d3.csv("assets/charts/population.csv", function(error, data) {
   var age1 = d3.max(data, function(d) { return d.age; }),
       year0 = d3.min(data, function(d) { return d.year; }),
       year1 = d3.max(data, function(d) { return d.year; }),
-      year = year1;
+      year = year0;
 
   // Update the scale domains.
   x.domain([year1 - age1, year1]);
@@ -68,20 +68,35 @@ d3.csv("assets/charts/population.csv", function(error, data) {
       .classed("zero", true);
 
   // Add labeled rects for each birthyear (so that no enter or exit is required).
+
+  function update() {
+    if (!(year in data)) return;
+    title.text(year);
+
+    birthyears.transition()
+        .duration(750)
+        .attr("transform", "translate(" + (x(year1) - x(year)) + ",0)");
+
+    birthyear.selectAll("rect")
+        .data(function(birthyear) { return data[year][birthyear] || [0, 0]; })
+      .transition()
+        .duration(750)
+        .attr("y", y)
+        .attr("height", function(value) { return height - y(value); });
+  }
   var birthyear = birthyears.selectAll(".birthyear")
-      .data(d3.range(year0 - age1, year1 + 1, 1))
-    .enter().append("g")
-      .attr("class", "birthyear")
-      .attr("transform", function(birthyear) { return "translate(" + x(birthyear) + ",0)"; });
+  .data(d3.range(year0 - age1, year1 + 1, 1))
+.enter().append("g")
+  .attr("class", "birthyear")
+  .attr("transform", function(birthyear) { return "translate(" + x(birthyear) + ",0)"; });
 
-  birthyear.selectAll("rect")
-      .data(function(birthyear) { return data[year][birthyear] || [0, 0]; })
-    .enter().append("rect")
-      .attr("x", -barWidth / 2)
-      .attr("width", barWidth)
-      .attr("y", y)
-      .attr("height", function(value) { return height - y(value); });
-
+birthyear.selectAll("rect")
+  .data(function(birthyear) { return data[year][birthyear] || [0, 0]; })
+.enter().append("rect")
+  .attr("x", -barWidth / 2)
+  .attr("width", barWidth)
+  .attr("y", y)
+  .attr("height", function(value) { return height - y(value); });
   /* Add labels to show birthyear.
   birthyear.append("text")
       .attr("y", height - 4)
@@ -107,19 +122,5 @@ d3.csv("assets/charts/population.csv", function(error, data) {
     update();
   });
 
-  function update() {
-    if (!(year in data)) return;
-    title.text(year);
 
-    birthyears.transition()
-        .duration(750)
-        .attr("transform", "translate(" + (x(year1) - x(year)) + ",0)");
-
-    birthyear.selectAll("rect")
-        .data(function(birthyear) { return data[year][birthyear] || [0, 0]; })
-      .transition()
-        .duration(750)
-        .attr("y", y)
-        .attr("height", function(value) { return height - y(value); });
-  }
 });
