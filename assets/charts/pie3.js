@@ -1,12 +1,12 @@
-var pie = new d3pie("pieChart", {
+var pie = new d3pie("pieChart3", {
 	/*"header": {
 		"title": {
-			"text": "Population",
+			"text": "Water related complaints in Haynesville",
 			"fontSize": 24,
 			"font": "open sans"
 		},
 		"subtitle": {
-			"text": "Black vs White population in Lowndes County (Census Data 2010)",
+			"text": "Years 2012-2017",
 			"color": "#999999",
 			"fontSize": 12,
 			"font": "open sans"
@@ -20,60 +20,54 @@ var pie = new d3pie("pieChart", {
 		"location": "bottom-left"
 	},*/
 	"size": {
-		"canvasWidth": 400,
+		"canvasWidth": 430,
 		"canvasHeight": 280,
-		"pieOuterRadius": "97%"
+		"pieOuterRadius": "90%"
 	},
 	"data": {
 		"sortOrder": "value-desc",
 		"content": [
 			{
-				"label": "White",
-				"value": 2859,
-				"color": "#c096ea"
+				"label": "Sewage Overflow",
+				"value": 42,
+				"color": "#2484c1"
 			},
 			{
-				"label": "Black",
-				"value": 8310,
-				"color": "#cc9fb1"
+				"label": "Sewer Leakage",
+				"value": 31,
+				"color": "#cb2121"
 			},
 			{
-				"label": "Other",
-				"value": 157,
-				"color": "#9f82f4"
+				"label": "Drinking Water",
+				"value": 27,
+				"color": "#4daa4b"
 			}
 		]
 	},
 	"labels": {
 		"outer": {
-			"pieDistance": 32
+			"pieDistance": 12
 		},
 		"inner": {
 			"hideWhenLessThanPercentage": 3
 		},
 		"mainLabel": {
-			"fontSize": 13
+			"fontSize": 11
 		},
 		"percentage": {
 			"color": "#ffffff",
-			"fontSize": 12,
 			"decimalPlaces": 0
 		},
 		"value": {
 			"color": "#adadad",
-			"fontSize": 13
+			"fontSize": 11
 		},
 		"lines": {
 			"enabled": true
 		},
 		"truncation": {
-			"enabled": true
+			"enabled": false
 		}
-	},
-	"tooltips": {
-		"enabled": true,
-		"type": "placeholder",
-		"string": "{label}: {value}"
 	},
 	"effects": {
 		"pullOutSegmentOnClick": {
@@ -85,8 +79,7 @@ var pie = new d3pie("pieChart", {
 	"misc": {
 		"gradient": {
 			"enabled": true,
-			"percentage": 75
+			"percentage": 100
 		}
-	},
-	"callbacks": {}
+	}
 });

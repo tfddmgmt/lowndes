@@ -1,5 +1,5 @@
 var pie = new d3pie("pieChart2", {
-	"header": {
+	/*"header": {
 		"title": {
 			"text": "Gender",
 			"fontSize": 24,
@@ -18,10 +18,11 @@ var pie = new d3pie("pieChart2", {
 		"fontSize": 10,
 		"font": "open sans",
 		"location": "bottom-left"
-	},
+	},*/
 	"size": {
-		"canvasWidth": 550,
-		"pieOuterRadius": "70%"
+		"canvasWidth": 400,
+		"canvasHeight": 280,
+		"pieOuterRadius": "97%"
 	},
 	"data": {
 		"sortOrder": "value-desc",
