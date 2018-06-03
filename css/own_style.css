@@ -1,18 +1,126 @@
+@font-face {
+    font-family: BebasNeueRegular;
+    src: url(fonts/BebasNeue-webfont.woff);
+}
+
+@font-face {
+    font-family: Alegreya-Regular;
+    src: url(fonts/Alegreya-Regular.ttf);
+}
+
+@font-face {
+    font-family: Ubuntu-Medium;
+    src: url(fonts/Ubuntu-Medium.ttf);
+}
+
+@font-face {
+    font-family: Ubuntu-Regular;
+    src: url(fonts/Ubuntu-Regular.ttf);
+}
+
 
 body {
 	padding: 0;
 	margin: 0;
 }
+
+
 html, body, #map {
 	height: 100%;
 	width: 100%;
 	padding: 0;
 	margin: 0;
 }
+
+a:link {
+    color: #777;
+}
+
+/* visited link */
+a:visited {
+    color: #777;
+}
+
 th {
 	text-align: left;
 	vertical-align: top;
 }
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	}
+/*Per tornare al font originale per la sidebar, rimuovi #sidebar*/
+
+
+#sidebar {
+	font-family: 'Ubuntu-Regular', Arial, sans-serif;
+	font-size: 14px;
+}
+
+
+.leg {
+	position: relative;
+	height: 50px;
+	float: left;
+	left: 2% !important;
+	padding-right: 5%;
+	}
+
+#sidebar img {
+	position: relative;
+	top: 2%;
+	left: 25%;
+	
+}
+
+
+
+slider { 
+	position: absolute;
+	top: 600px; 
+	right: 200px; 
+	z-index: 5; }
+/* Sidebar 
+#sidebar {
+	position: absolute;
+	opacity: 0.9;
+	top: 1%;
+	left: 1%;
+	height: 96%;
+	width: 35%;
+	border: 1px solid #999;
+	background-image: url("../img/img.jpg");
+	background-color:rgb(252, 250, 250);
+	padding-left: 1%;
+	padding-right: 1%;
+	padding-top: 1%;
+	z-index: 10;
+}
+
+#sidebar h2 {
+	float: left;
+}
+
+#sidebar img {
+	position: relative;
+	top: 2%;
+	left: 25%;
+	
+}
+
+.sidebar_content {
+	width: 32%;
+	height: 70%;
+	padding-top: 5px;
+	position: fixed;
+	overflow: auto;
+}
+
+*/
 .info {
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
@@ -27,3 +135,4 @@ th {
 }
 .leaflet-container {
 	background: #fff;
+}

@@ -5,18 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+
+
+
+    <!--add ons-->
+    <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="css/own_style.css">
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <link rel="stylesheet" href="css/label.css" />
+    <link rel="stylesheet" href="css/L.Control.Basemaps.css" />
+    <link rel="stylesheet" href="css/L.Control.Sidebar.css" />
+    <link rel="stylesheet" href="css/styledLayerControl.css" />
+    <link rel="stylesheet" href="css/leaflet-measure.css">
+    <script src="js/leaflet.js"></script>
     <script src="js/leaflet-hash.js"></script>
+    <script src="js/styledLayerControl.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/Autolinker.min.js"></script>
+    <script src="js/label.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/L.Control.Basemaps.js"></script>
+    <script src="js/leaflet.pattern-src.js"></script>
+    <script src="js/L.Control.Sidebar.js"></script>
+    <script src="js/leaflet-measure.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <!--meta data for sharing links on Facebook-->
-    <meta property="og:title" content="The major cities in Oregon"/>
-    <meta property="og:url" content="http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.4/video.html"/>
-    <meta property="og:description" content="This is an example of a storymap."/>
-    <meta property="og:image" content="img/social.png"/>
+
+
 
     <!--add required stylesheets-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -44,9 +57,6 @@
     <!--leaflet.ajax for asynchronously adding geojson data-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
 
-    <!--mini globle map-->
-    <script src="//d3js.org/d3.v3.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 <style>
 
 nav {
@@ -105,7 +115,11 @@ body {
 <script src="data/exp_Lowndeschurches.js"></script>
 <script src="data/exp_Lowndesschools.js"></script>
 <script src="data/exp_Lowndeshousehold.js"></script>
+<script src="data/exp_rivers.js"></script>
+<script src="data/exp_water.js"></script>
+<script src="data/exp_absorption.js"></script>
 <script>
+    //<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 var map = L.map('map', {
     zoomControl:true, maxZoom:19
 }).fitBounds([[31.9505456602,-87.0486073395],[32.4178083172,-86.2563626962]]);
@@ -125,20 +139,20 @@ var basemap_2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 basemap_0.addTo(map);
 var layerOrder=new Array();
 function pop_Lowndeshousehold(feature, layer) {					
-    var popupContent = '<table><tr><th scope="row">POP2010</th><td>' + Autolinker.link(String(feature.properties['POP2010'])) + '</td></tr><tr><th scope="row">HOUSEHOLDS</th><td>' + Autolinker.link(String(feature.properties['HOUSEHOLDS'])) + '</td></tr><tr><th scope="row">HSE_UNITS</th><td>' + Autolinker.link(String(feature.properties['HSE_UNITS'])) + '</td></tr></table>';
+    var popupContent = '<table><tr><th scope="row">Residents: </th><td>' + Autolinker.link(String(feature.properties['POP2010'])) + '</td></tr><tr><th scope="row">Households: </th><td>' + Autolinker.link(String(feature.properties['HOUSEHOLDS'])) + '</td></tr><tr><th scope="row">House Units: </th><td>' + Autolinker.link(String(feature.properties['HSE_UNITS'])) + '</td></tr></table>';
     layer.bindPopup(popupContent);
 }
 
 var exp_LowndeshouseholdJSON = new L.geoJson(exp_Lowndeshousehold,{
     onEachFeature: pop_Lowndeshousehold,
     pointToLayer: function (feature, latlng) {  
-        return L.circleMarker(latlng, {
-            radius: 4.0,
-            fillColor: '#86533f',
-            color: '#000000',
-            weight: 1,
-            opacity: 1.0,
-            fillOpacity: 1.0
+        return L.marker(latlng, {
+            icon: L.icon({
+                iconUrl: "img/home.svg",
+                iconSize:     [24, 24], // size of the icon change this to scale your icon (first coordinate is x, second y from the upper left corner of the icon)
+                iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location (first coordinate is x, second y from the upper left corner of the icon)
+                popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor (first coordinate is x, second y from the upper left corner of the icon)
+            })
         })
     }
 });
@@ -163,7 +177,7 @@ var exp_LowndesschoolsJSON = new L.geoJson(exp_Lowndesschools,{
     }}
 );
 //add comment sign to hide this layer on the map in the initial view.
-feature_group.addLayer(exp_LowndesschoolsJSON);
+//feature_group.addLayer(exp_LowndesschoolsJSON);
 function pop_Lowndeschurches(feature, layer) {					
     var popupContent = feature.properties.html_exp;
     layer.bindPopup(popupContent);
@@ -183,14 +197,14 @@ var exp_LowndeschurchesJSON = new L.geoJson(exp_Lowndeschurches,{
     }}
 );
 //add comment sign to hide this layer on the map in the initial view.
-feature_group.addLayer(exp_LowndeschurchesJSON);
+//feature_group.addLayer(exp_LowndeschurchesJSON);
 function pop_Lowndescounty(feature, layer) {					
 
 }
 
 function doStyleLowndescounty(feature) {
         return {
-            color: '#000000',
+            color: '#ff0000',
             fillColor: '#474eca',
             weight: 1.3,
             dashArray: '',
@@ -267,42 +281,175 @@ var exp_LowndesfloodingfrequencydissolvedJSON = new L.geoJson(exp_Lowndesfloodin
     style: doStyleLowndesfloodingfrequencydissolved
 });
 //add comment sign to hide this layer on the map in the initial view.
-feature_group.addLayer(exp_LowndesfloodingfrequencydissolvedJSON);
+//feature_group.addLayer(exp_LowndesfloodingfrequencydissolvedJSON);
 
+		function pop_absorption(feature, layer) {					
+			var popupContent = feature.properties.html_exp;
+			layer.bindPopup(popupContent);
+		}
+
+		function doStyleabsorption(feature) {
+			switch (feature.properties.SEPTANKAF_) {
+				case 'Not limited':
+					return {
+						weight: '1.3',
+						fillColor: '#1a9641',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Not rated':
+					return {
+						weight: '1.3',
+						fillColor: '#e6e6e6',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Somewhat limited':
+					return {
+						weight: '1.3',
+						fillColor: '#fec981',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Very limited':
+					return {
+						weight: '1.3',
+						fillColor: '#d7191c',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+			}
+		}
+		var exp_absorptionJSON = new L.geoJson(exp_absorption,{
+			onEachFeature: pop_absorption,
+			style: doStyleabsorption
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		//feature_group.addLayer(exp_absorptionJSON);
+		function pop_water(feature, layer) {					
+			var popupContent = feature.properties.html_exp;
+			layer.bindPopup(popupContent);
+		}
+
+		function doStylewater(feature) {
+				return {
+					color: '#000000',
+					fillColor: '#0000ff',
+					weight: 1.3,
+					dashArray: '',
+					opacity: 0.4,
+					fillOpacity: 0.8
+				};
+
+		}
+		var exp_waterJSON = new L.geoJson(exp_water,{
+			onEachFeature: pop_water,
+			style: doStylewater
+		});
+
+		//add comment sign to hide this layer on the map in the initial view.
+		//feature_group.addLayer(exp_waterJSON);
+		function pop_rivers(feature, layer) {					
+			var popupContent = feature.properties.html_exp;
+			layer.bindPopup(popupContent);
+		}
+
+		function doStylerivers(feature) {
+				return {
+					weight: 2,
+					color: '#0000ff',
+					dashArray: '',
+					opacity: 0.7,
+					fillOpacity: 0.8
+				};
+		}
+		var exp_riversJSON = new L.geoJson(exp_rivers,{
+			onEachFeature: pop_rivers,
+			style: doStylerivers
+		});
+
+		//add comment sign to hide this layer on the map in the initial view.
+		//feature_group.addLayer(exp_riversJSON);
 feature_group.addTo(map);
-var title = new L.Control();
-title.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-    this.update();
-    return this._div;
-};
-title.update = function () {
-    this._div.innerHTML = '<h2>Lowndes County</h2>Interactive Web Map'
-};
-title.addTo(map);
-var baseMaps = {
-'CartoDB Light': basemap_0,
-'Satellite': basemap_1,
-'Open Street Map': basemap_2
-};
-L.control.layers(baseMaps,{"Floodings": exp_LowndesfloodingfrequencydissolvedJSON,"Churches": exp_LowndeschurchesJSON,"Schools": exp_LowndesschoolsJSON,},{collapsed:false}).addTo(map);
-L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+        var baseMaps = [
+                            { 
+                                groupName : "Basemaps",
+                                expanded : true,
+                                layers    : {
+                                    "CartoDB" :  basemap_0,
+                                    "Satellite"  :  basemap_1,
+                                    "OSM"   :  basemap_2
+                                }
+                            }							
+            ];
+		
+		var overlays = [
+							 {
+								groupName : "Geo",
+								expanded : false,
+								layers    : { 
+                                    "Flooding frequency": exp_LowndesfloodingfrequencydissolvedJSON,
+                                    "Absorption Capabilities": exp_absorptionJSON,
+                                    "Water Bodies": exp_waterJSON,
+                                    "Rivers": exp_riversJSON									
+								}	
+                             },
+							 {
+								groupName : "Population",
+								expanded : false,
+								layers    : { "Churches"	 : exp_LowndeschurchesJSON,
+                                    "Schools" : exp_LowndesschoolsJSON,
+									"Households" : exp_LowndeshouseholdJSON	
+								}	
+                             }		
+                             
+			];
+			var lcoptions = {
+				container_width 	: "300px",
+				group_maxHeight     : "600px",
+				//container_maxHeight : "350px", 
+				exclusive       	: true,
+				collapsed			: false
+			};
+		
+			var control = L.Control.styledLayerControl(baseMaps, overlays, lcoptions);
+			map.addControl(control);
+		
+		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+		var measureControl = new L.Control.Measure({ position: 'topleft', primaryLengthUnit: 'meters', secondaryLengthUnit: 'kilometers', primaryAreaUnit: 'sqmeters', secondaryAreaUnit: 'hectares' });
+		measureControl.addTo(map);
 </script>
     <dl>
         <dt>
             <!--facebook icon-->
             <a class="fab fa-facebook-square btn"
-               href="https://www.facebook.com/CatherineColemanFlowers/"  style="top:40px"
+               href="https://www.facebook.com/CatherineColemanFlowers/"  style="top:140px"
                target="_blank"></a>
         </dt>
         <dt>
             <!--github icon-->
-            <a class="fab fa-github btn" href="https://github.com/gsvevo/lowndes" style="top:60px"
+            <a class="fab fa-github btn" href="https://github.com/gsvevo/lowndes" style="top:160px"
                target="_blank"></a>
         </dt>
         <dt>
             <!--info icon-->
-            <i class="fas fa-info-circle btn" style="top:140px" data-toggle="modal" data-target="#info-modal"></i>
+            <i class="fas fa-info-circle btn" style="top:180px" data-toggle="modal" data-target="#info-modal"></i>
         </dt>
     </dl>
 
