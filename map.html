@@ -126,16 +126,16 @@ var map = L.map('map', {
     zoomControl:true, maxZoom:19
 }).fitBounds([[31.9505456602,-87.0486073395],[32.4178083172,-86.2563626962]]);
 var hash = new L.Hash(map);
-var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+//var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
 var feature_group = new L.featureGroup([]);
 var raster_group = new L.LayerGroup([]);
-var basemap_0 = L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', { 
+var basemap_0 = L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 
 });	
-var basemap_1 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw', {
+var basemap_1 = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw', {attribution: '&copy; <a href="https://mapbox.com">MapBox</a>',
                 id: 'mapbox.satellite'
             });
-var basemap_2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+var basemap_2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>', 
                 id: 'OSM'
             });
 basemap_0.addTo(map);
@@ -524,9 +524,9 @@ feature_group.addTo(map);
                                 groupName : "Basemaps",
                                 expanded : true,
                                 layers    : {
-                                    "CartoDB" :  basemap_0,
+                                    "Light Gray" :  basemap_0,
                                     "Satellite"  :  basemap_1,
-                                    "OSM"   :  basemap_2
+                                    "Open Street Map"   :  basemap_2
                                 }
                             }							
             ];
@@ -596,11 +596,12 @@ feature_group.addTo(map);
                     <h4 class="modal-title">About</h4>
                 </div>
                 <div class="modal-body">
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </p>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p><b>Map Sources</b></p>
+                    <p><b>Basemaps</b> are credited in the lower right corner of each basemap </p>
+                    <p><b>Population data</b> is derived from <a href="https://www.census.gov" title="Census">The United States Census Bureau</a> and <a href="http://www.arcgis.com/home/group.html?id=24838c2d95e14dd18c25e9bad55a7f82&q=health&t=group&start=1&view=list&searchTerm=#content">ESRI</a></p>
+                    <p><b>Complaints</b> related to water issues were taken from <a href="http://www.adem.state.al.us/default.cnt">Alabama Department of Environmental Management</a></p>
+                    <p><b>Geological data</b> come from <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/?cid=nrcs142p2_053627">USDA</a>. The flooding frequency map was provided by <a href="https://www.acrecdc.com/">ACRE</a></p>
+                    <p>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>. Complaints icon made by <a href="https://thenounproject.com/term/complaint/89569/" title="Noun">The Noun Project</a></p>
                 </div>
             </div>
         </div>
