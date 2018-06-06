@@ -566,24 +566,24 @@ feature_group.addTo(map);
 			map.addControl(control);
 		
 		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
-		var measureControl = new L.Control.Measure({ position: 'topleft', primaryLengthUnit: 'meters', secondaryLengthUnit: 'kilometers', primaryAreaUnit: 'sqmeters', secondaryAreaUnit: 'hectares' });
+		var measureControl = new L.Control.Measure({ position: 'topleft', primaryLengthUnit: 'feet', secondaryLengthUnit: 'miles', primaryAreaUnit: 'sqfeet', secondaryAreaUnit: 'sqmiles' });
 		measureControl.addTo(map);
 </script>
     <dl>
         <dt>
             <!--facebook icon-->
             <a class="fab fa-facebook-square btn"
-               href="https://www.facebook.com/CatherineColemanFlowers/"  style="top:140px"
+               href="https://www.facebook.com/CatherineColemanFlowers/" style="position: absolute; top:40px;left:60px"
                target="_blank"></a>
         </dt>
         <dt>
             <!--github icon-->
-            <a class="fab fa-github btn" href="https://github.com/gsvevo/lowndes" style="top:160px"
+            <a class="fab fa-github btn" href="https://github.com/gsvevo/lowndes" style="position: absolute; top:40px;left:90px"
                target="_blank"></a>
         </dt>
         <dt>
             <!--info icon-->
-            <i class="fas fa-info-circle btn" style="top:180px" data-toggle="modal" data-target="#info-modal"></i>
+            <i class="fas fa-info-circle btn" style="position: absolute; top:40px;left:120px" data-toggle="modal" data-target="#info-modal"></i>
         </dt>
     </dl>
 
