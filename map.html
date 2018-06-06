@@ -118,6 +118,8 @@ body {
 <script src="data/exp_rivers.js"></script>
 <script src="data/exp_water.js"></script>
 <script src="data/exp_absorption.js"></script>
+<script src="data/exp_Soiltextures.js"></script>
+<script src="data/exp_complaints.js"></script>
 <script>
     //<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 var map = L.map('map', {
@@ -198,6 +200,29 @@ var exp_LowndeschurchesJSON = new L.geoJson(exp_Lowndeschurches,{
 );
 //add comment sign to hide this layer on the map in the initial view.
 //feature_group.addLayer(exp_LowndeschurchesJSON);
+
+		function pop_complaints(feature, layer) {					
+			var popupContent = feature.properties.html_exp;
+			layer.bindPopup(popupContent);
+		}
+
+		var exp_complaintsJSON = new L.geoJson(exp_complaints,{
+			onEachFeature: pop_complaints,
+			pointToLayer: function (feature, latlng) {  
+				return L.marker(latlng, {
+            icon: L.icon({
+                iconUrl: "img/complaint.svg",
+                iconSize:     [24, 24], // size of the icon change this to scale your icon (first coordinate is x, second y from the upper left corner of the icon)
+                iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location (first coordinate is x, second y from the upper left corner of the icon)
+                popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor (first coordinate is x, second y from the upper left corner of the icon)
+            })
+        })
+    }}
+);
+		//add comment sign to hide this layer on the map in the initial view.
+		//feature_group.addLayer(exp_complaintsJSON);
+
+
 function pop_Lowndescounty(feature, layer) {					
 
 }
@@ -282,6 +307,113 @@ var exp_LowndesfloodingfrequencydissolvedJSON = new L.geoJson(exp_Lowndesfloodin
 });
 //add comment sign to hide this layer on the map in the initial view.
 //feature_group.addLayer(exp_LowndesfloodingfrequencydissolvedJSON);
+
+
+		function pop_Soiltextures(feature, layer) {					
+			var popupContent = feature.properties.html_exp;
+			layer.bindPopup(popupContent);
+		}
+
+		function doStyleSoiltextures(feature) {
+			switch (feature.properties.Simple_tex) {
+				case 'Clay':
+					return {
+						weight: '1.3',
+						fillColor: '#84e756',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Clay loam':
+					return {
+						weight: '1.3',
+						fillColor: '#22b6d7',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Loam':
+					return {
+						weight: '1.3',
+						fillColor: '#ec2295',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Loamy Sand':
+					return {
+						weight: '1.3',
+						fillColor: '#3741cd',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Sandy loam':
+					return {
+						weight: '1.3',
+						fillColor: '#e3dd7e',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Silt loam':
+					return {
+						weight: '1.3',
+						fillColor: '#aa16e9',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 'Silty clay':
+					return {
+						weight: '1.3',
+						fillColor: '#5ae798',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				default:
+					return {
+						weight: '1.3',
+						fillColor: '#e87e67',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+			}
+		}
+		var exp_SoiltexturesJSON = new L.geoJson(exp_Soiltextures,{
+			onEachFeature: pop_Soiltextures,
+			style: doStyleSoiltextures
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		//feature_group.addLayer(exp_SoiltexturesJSON);
+
+
 
 		function pop_absorption(feature, layer) {					
 			var popupContent = feature.properties.html_exp;
@@ -407,7 +539,8 @@ feature_group.addTo(map);
                                     "Flooding frequency": exp_LowndesfloodingfrequencydissolvedJSON,
                                     "Absorption Capabilities": exp_absorptionJSON,
                                     "Water Bodies": exp_waterJSON,
-                                    "Rivers": exp_riversJSON									
+                                    "Rivers": exp_riversJSON,
+                                    "Soil Texture": exp_SoiltexturesJSON									
 								}	
                              },
 							 {
@@ -415,7 +548,8 @@ feature_group.addTo(map);
 								expanded : false,
 								layers    : { "Churches"	 : exp_LowndeschurchesJSON,
                                     "Schools" : exp_LowndesschoolsJSON,
-									"Households" : exp_LowndeshouseholdJSON	
+									"Households" : exp_LowndeshouseholdJSON,
+                                    "Complaints" : exp_complaintsJSON
 								}	
                              }		
                              
