@@ -170,7 +170,7 @@ var exp_LowndesschoolsJSON = new L.geoJson(exp_Lowndesschools,{
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
             icon: L.icon({
-                iconUrl: feature.properties.icon_exp,
+                iconUrl: "img/school.svg",
                 iconSize:     [24, 24], // size of the icon change this to scale your icon (first coordinate is x, second y from the upper left corner of the icon)
                 iconAnchor:   [12, 12], // point of the icon which will correspond to marker's location (first coordinate is x, second y from the upper left corner of the icon)
                 popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor (first coordinate is x, second y from the upper left corner of the icon)
